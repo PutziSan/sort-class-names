@@ -1,4 +1,11 @@
 "use strict";
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
+};
 exports.__esModule = true;
 var magic_string_1 = require("magic-string");
 var fs = require("fs");
@@ -11,40 +18,56 @@ function classNameToIndex(className) {
 }
 function classNamePartsToSortedString(parts) {
     var orderedClassNameParts = [];
-    var res = {};
-    var classNameParts = parts.filter(function (p) { return p.type === "classNames"; });
-    ["", "sm:", "md:", "lg:", "xl:"].forEach(function (prefix) {
-        // TODO sache mit prefix reinnehmen, sodass sm lg usw richtig und gut gruppiert wird:
-    });
-    parts
+    var classNameList = parts
         .filter(function (p) { return p.type === "classNames"; })
         .map(function (p) { return p.value; })
         .join(" ")
         .split(" ")
         .filter(Boolean)
         .map(function (cn) { return cn.trim(); })
-        .forEach(function (cn) {
-        if (cn === "/") {
-            // ignore slash classes
-            return;
-        }
-        var sortIndex = classNameToIndex(cn);
-        var arr = res[sortIndex.toString()];
-        if (!arr) {
-            arr = [];
-            res[sortIndex.toString()] = arr;
-        }
-        arr.push(cn);
+        // ignore slash classes
+        .filter(function (cn) { return cn !== "/"; });
+    var prefixes = ["sm:", "md:", "lg:", "xl:"];
+    var noPrefixClassNames = [];
+    var prefixesHelper = prefixes.map(function (p) {
+        return { prefix: p, classNames: [] };
     });
-    var numberKeys = Object.keys(res).map(function (k) { return Number(k); });
-    numberKeys
-        .sort(function (a, b) { return a - b; })
-        .forEach(function (key) {
-        orderedClassNameParts.push(res[key.toString()].sort().join(" "));
-        if (key < 0 && numberKeys.some(function (k) { return k >= 0; })) {
-            orderedClassNameParts.push("/");
+    classNameList.forEach(function (cn) {
+        for (var _i = 0, prefixesHelper_1 = prefixesHelper; _i < prefixesHelper_1.length; _i++) {
+            var _a = prefixesHelper_1[_i], prefix = _a.prefix, classNames = _a.classNames;
+            if (cn.startsWith(prefix)) {
+                classNames.push(cn);
+                return;
+            }
         }
+        // wenn kein prefix passt, füge es den allgemeinen Klassen hinzu:
+        noPrefixClassNames.push(cn);
     });
+    __spreadArrays([{ prefix: "", classNames: noPrefixClassNames }], prefixesHelper).forEach(function (_a) {
+        var classNames = _a.classNames, prefix = _a.prefix;
+        var res = {};
+        classNames.forEach(function (cn) {
+            // nutze den bereinigten Klassen-Namen um den sortierungsindex herauszubekommen:
+            var classNameWithoutPrefix = cn.substr(prefix.length);
+            var sortIndex = classNameToIndex(classNameWithoutPrefix);
+            var arr = res[sortIndex.toString()];
+            if (!arr) {
+                arr = [];
+                res[sortIndex.toString()] = arr;
+            }
+            arr.push(cn);
+        });
+        var numberKeys = Object.keys(res).map(function (k) { return Number(k); });
+        numberKeys
+            .sort(function (a, b) { return a - b; })
+            .forEach(function (key) {
+            orderedClassNameParts.push(res[key.toString()].sort().join(" "));
+            if (key < 0 && numberKeys.some(function (k) { return k >= 0; })) {
+                orderedClassNameParts.push("/");
+            }
+        });
+    });
+    // zum Schluss alle Variablen hinzufügen:
     parts.filter(function (p) { return p.type === "variable"; }).forEach(function (p) { return orderedClassNameParts.push(p.value); });
     return orderedClassNameParts.join(" ");
 }

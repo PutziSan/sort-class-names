@@ -1,9 +1,9 @@
 {
   "name": "prettier-plugin-class-name-attr",
   "version": "0.0.2",
-  "main": "prettier-plugin-class-name-attr.js",
+  "main": "sort-class-names.js",
   "scripts": {
-    "build": "tsc custom-script-magic-string.ts --lib esnext --watch"
+    "build": "tsc sort-class-names.ts --lib esnext --watch"
   },
   "dependencies": {
     "prettier": "^2.0.5",

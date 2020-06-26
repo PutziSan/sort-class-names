@@ -16,10 +16,10 @@
 </head>
 <body>
 
-<header class="bg-primary / h-1"></header>
+<header class="h-1 bg-primary"></header>
 <main>
-    <section class="md:align-items-stretch md:px-4 / mx-auto flex align-items-start justify-content-between container px-2 py-4">
-        <div class="md:flex / hidden align-items-center">
+    <section class="mx-auto flex align-items-start justify-content-between container px-2 py-4 md:align-items-stretch md:px-4">
+        <div class="hidden align-items-center md:flex">
             <img
                     class="h-16"
                     src="<?= get_stylesheet_directory_uri() . '/assets/ResetDetoxWeek-icon.svg' ?>"
@@ -32,12 +32,12 @@
                     alt="ResetDetoxWeek"
             >
         </div>
-        <div class="md:hidden / -mt-2 h-24">
+        <div class="-mt-2 h-24 md:hidden">
             <img class="max-h-full max-w-full" src="<?= get_stylesheet_directory_uri() . '/assets/resetdetoxweek_logo_hor-1024x861.png' ?>" alt="ResetDetoxWeek Logo">
         </div>
         <a
                 href="https://app.resetdetoxweek.de"
-                class="border-secondary-700 hover:bg-secondary-800 hover:text-secondary-300 text-secondary / py-2 px-4 border border-solid rounded-1 bg-transparent transition"
+                class="hover:bg-secondary-800 hover:text-secondary-300 / py-2 px-4 border border-solid rounded-1 border-secondary-700 bg-transparent text-secondary transition"
         >
       <span style="font-size: 2rem;" class="flex align-items-center justify-content-center">
         <i class="fa-clipboard-list fad"></i>
@@ -52,10 +52,10 @@
     </section>
 
     <!--  hero-bereich + cta-->
-    <section class="md:px-4 / mx-auto container px-2 pt-8 pb-16">
+    <section class="mx-auto container px-2 pt-8 pb-16 md:px-4">
         <div class="flex justify-content-center">
             <h1
-                    class="md:max-w-xl text-primary / text-3xl font-bold text-center tracking-wide w-full max-w-sm"
+                    class="w-full max-w-sm text-primary text-3xl font-bold text-center tracking-wide md:max-w-xl"
             >
                 Deine persönliche Gesundheitswoche
             </h1>
@@ -64,18 +64,18 @@
         <a
                 href="/product/reset-detox-week/"
                 style="background-image: url(<?= get_stylesheet_directory_uri() . "/assets/detox-salad-with-watermelon-PJUZ67T.jpg" ?>);"
-        class="h-72 hover:zoom md:h-96 / mt-8 flex align-items-center rounded bg-center bg-cover bg-no-repeat transition shadow"
+        class="hover:zoom / mt-8 flex align-items-center h-72 rounded bg-center bg-cover bg-no-repeat transition shadow md:h-96"
         >
         <div class="p-4">
-            <h2 class="text-primary text-stroke-white / text-xl font-bold">Befreie dich von Altlasten</h2>
-            <h3 class="text-shadow text-stroke-white / text-base font-bold text-gray-700">mit der ResetDetoxWeek</h3>
+            <h2 class="text-stroke-white / text-primary text-xl font-bold">Befreie dich von Altlasten</h2>
+            <h3 class="text-shadow text-stroke-white / text-gray-700 text-base font-bold">mit der ResetDetoxWeek</h3>
         </div>
         </a>
 
         <div class="-mt-6 flex justify-content-center">
             <a
                     href="/product/reset-detox-week/"
-                    class="bg-secondary hover:bg-secondary-300 hover:text-gray-100 / text-xl font-bold tracking-wide py-2 px-4 z-10 rounded-full text-white transition"
+                    class="hover:bg-secondary-300 hover:text-gray-100 / py-2 px-4 z-10 rounded-full bg-secondary text-white text-xl font-bold tracking-wide transition"
             >
         <span class="flex align-items-center">
           ResetDetoxWeek kaufen
@@ -88,8 +88,8 @@
     </section>
 
     <!--  Steckbrief-->
-    <!--  <section class="md:px-4 / mx-auto container px-2 pt-4 pb-12">-->
-    <!--    <h2 class="text-primary / text-xl font-bold text-center tracking-wide">-->
+    <!--  <section class="mx-auto container px-2 pt-4 pb-12 md:px-4">-->
+    <!--    <h2 class="text-primary text-xl font-bold text-center tracking-wide">-->
     <!--      In 7 Tagen den Körper auf Natürlichkeit trimmen-->
     <!--    </h2>-->
     <!--    <div class="flex justify-content-center">-->
@@ -105,10 +105,10 @@
     <!--  </section>-->
 
     <!-- Ernährungsberaterin: -->
-    <section class="bg-primary-900 / py-16">
-        <div class="md:px-4 / mx-auto container px-2">
-            <div class="md:flex / block">
-                <div style="min-height: 600px;" class="flex-3 md:h-auto / relative h-screen">
+    <section class="py-16 bg-primary-900">
+        <div class="mx-auto container px-2 md:px-4">
+            <div class="block md:flex">
+                <div style="min-height: 600px;" class="relative flex-3 h-screen md:h-auto">
                     <div class="absolute inset-0 flex">
                         <div class="flex-1 flex flex-col">
                             <div class="flex-1 min-h-0">
@@ -116,14 +116,14 @@
                                      src="<?= get_stylesheet_directory_uri() . "/assets/beraterin/extra-smoothie.jpg" ?>"
                                 alt="Erdbeer Shake">
                             </div>
-                            <div class="flex-2 / mt-2 min-h-0">
+                            <div class="mt-2 flex-2 min-h-0">
                                 <img class="w-full h-full object-cover"
                                      src="<?= get_stylesheet_directory_uri() . "/assets/beraterin/4.jpg" ?>"
                                 alt="Annemarie Stein mit Obstkorb">
                             </div>
                         </div>
                         <div class="ml-2 flex-1 flex flex-col">
-                            <div class="flex-2 / min-h-0">
+                            <div class="flex-2 min-h-0">
                                 <img class="w-full h-full object-cover"
                                      src="<?= get_stylesheet_directory_uri() . "/assets/beraterin/img_4555.jpg" ?>"
                                 alt="Annemarie Stein mit Siegerschale">
@@ -136,11 +136,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="md:ml-8 md:mt-0 / mt-4 flex-1 flex flex-col align-items-end justify-content-center py-8">
-                    <h2 class="text-primary-600 / text-lg font-light w-full max-w-sm">
+                <div class="mt-4 flex-1 flex flex-col align-items-end justify-content-center py-8 md:mt-0 md:ml-8">
+                    <h2 class="w-full max-w-sm text-primary-600 text-lg font-light">
                         Ernährungsberaterin
                     </h2>
-                    <h3 class="text-primary / mt-4 text-xl font-bold tracking-wide w-full max-w-sm">
+                    <h3 class="mt-4 w-full max-w-sm text-primary text-xl font-bold tracking-wide">
                         Annemarie Stein
                     </h3>
                     <p class="mt-8 w-full max-w-sm">
@@ -150,7 +150,7 @@
                     </p>
                     <a
                             href="/steckbrief/"
-                            class="border-secondary-700 hover:bg-secondary-800 hover:text-secondary-300 text-secondary / mt-4 py-2 px-4 border border-solid rounded-1 bg-transparent transition"
+                            class="hover:bg-secondary-800 hover:text-secondary-300 / mt-4 py-2 px-4 border border-solid rounded-1 border-secondary-700 bg-transparent text-secondary transition"
                     >
             <span class="flex align-items-center">
               Mehr erfahren
@@ -165,10 +165,10 @@
     </section>
 
     <!-- Was ist Entgiftung -->
-    <section class="md:flex-row md:px-4 / mx-auto flex flex-col-reverse container py-16">
+    <section class="mx-auto flex flex-col-reverse container py-16 md:flex-row md:px-4">
         <div class="flex-1 px-4 py-12">
-            <div class="bg-primary / h-2"></div>
-            <h2 class="text-primary / mt-6 text-xl font-bold tracking-wide">
+            <div class="h-2 bg-primary"></div>
+            <h2 class="mt-6 text-primary text-xl font-bold tracking-wide">
                 Was ist Entgiftung
             </h2>
             <p class="mt-4">
@@ -181,7 +181,7 @@
             <div class="mt-4 flex justify-content-end">
                 <a
                         href="/was-ist-entgiftung/"
-                        class="border-secondary-700 hover:bg-secondary-800 hover:text-secondary-300 text-secondary / py-2 px-4 border border-solid rounded-1 bg-transparent transition"
+                        class="hover:bg-secondary-800 hover:text-secondary-300 / py-2 px-4 border border-solid rounded-1 border-secondary-700 bg-transparent text-secondary transition"
                 >
           <span class="flex align-items-center">
             Mehr erfahren
@@ -191,27 +191,27 @@
         </span>
                 </a>
             </div>
-            <div class="bg-primary / mt-6 h-2"></div>
+            <div class="mt-6 h-2 bg-primary"></div>
         </div>
         <div class="flex-1 flex min-h-40">
             <img class="w-full h-full object-cover" src="<?= get_stylesheet_directory_uri() . "/assets/vegan-liftz-uPFoQjYHFu8-unsplash.jpg" ?>" alt="Blauer Teller mit DETOX Schriftzug">
         </div>
     </section>
 
-    <section class="bg-primary-900 / py-16">
-        <div class="md:px-4 / mx-auto container px-2">
+    <section class="py-16 bg-primary-900">
+        <div class="mx-auto container px-2 md:px-4">
             <div class="flex justify-content-center">
                 <h2
-                        class="text-primary-300 / text-xl font-bold text-center tracking-wide"
+                        class="text-primary-300 text-xl font-bold text-center tracking-wide"
                 >
                     Das sagen unsere Kunden
                 </h2>
             </div>
 
             <div
-                    class="md:justify-content-center md:overflow-x-hidden snap-type-x-mandatory / overflow-x-auto flex w-full py-4"
+                    class="snap-type-x-mandatory / overflow-x-auto flex w-full py-4 md:overflow-x-hidden md:justify-content-center"
             >
-                <div class="md:w-1/2 snap-align-center / flex-shrink-0 w-full px-2">
+                <div class="snap-align-center / flex-shrink-0 w-full px-2 md:w-1/2">
                     <div class="flex justify-content-center px-4">
                         <img
                                 src="<?= get_stylesheet_directory_uri() . "/assets/felx-maly.jpg" ?>"
@@ -222,26 +222,26 @@
 
                     <div class="mt-3 flex justify-content-center">
                         <div class="flex text-base">
-                            <i class="fa-lg fa-star fas text-primary / mx-1"></i>
-                            <i class="fa-lg fa-star fas text-primary / mx-1"></i>
-                            <i class="fa-lg fa-star fas text-primary / mx-1"></i>
-                            <i class="fa-lg fa-star fas text-primary / mx-1"></i>
-                            <i class="fa-lg fa-star fas text-primary / mx-1"></i>
+                            <i class="fa-lg fa-star fas / mx-1 text-primary"></i>
+                            <i class="fa-lg fa-star fas / mx-1 text-primary"></i>
+                            <i class="fa-lg fa-star fas / mx-1 text-primary"></i>
+                            <i class="fa-lg fa-star fas / mx-1 text-primary"></i>
+                            <i class="fa-lg fa-star fas / mx-1 text-primary"></i>
                         </div>
                     </div>
 
                     <p class="mt-8 font-bold text-center">Felix Maly</p>
-                    <p class="mt-1 text-sm font-light text-center text-gray-700">
+                    <p class="mt-1 text-gray-700 text-sm font-light text-center">
                         3-maliger Deutscher Meister im Eisschnelllauf
                     </p>
 
                     <div class="mt-6 flex justify-content-center">
-                        <p class="text-center max-w-xs">
+                        <p class="max-w-xs text-center">
                             Es ist toll, dass man die Detox Woche jetzt auch von zu Hause aus machen kann! Ich finde die Rezepte echt gut und relativ schnell und einfach umzusetzen.
                         </p>
                     </div>
                 </div>
-                <div class="md:w-1/2 snap-align-center / flex-shrink-0 w-full px-2">
+                <div class="snap-align-center / flex-shrink-0 w-full px-2 md:w-1/2">
                     <div class="flex justify-content-center px-4">
                         <img
                                 src="<?= get_stylesheet_directory_uri() . "/assets/daniela-tischer.jpg" ?>"
@@ -252,21 +252,21 @@
 
                     <div class="mt-3 flex justify-content-center">
                         <div class="flex text-base">
-                            <i class="fa-lg fa-star fas text-primary / mx-1"></i>
-                            <i class="fa-lg fa-star fas text-primary / mx-1"></i>
-                            <i class="fa-lg fa-star fas text-primary / mx-1"></i>
-                            <i class="fa-lg fa-star fas text-primary / mx-1"></i>
-                            <i class="fa-lg fa-star fas text-primary / mx-1"></i>
+                            <i class="fa-lg fa-star fas / mx-1 text-primary"></i>
+                            <i class="fa-lg fa-star fas / mx-1 text-primary"></i>
+                            <i class="fa-lg fa-star fas / mx-1 text-primary"></i>
+                            <i class="fa-lg fa-star fas / mx-1 text-primary"></i>
+                            <i class="fa-lg fa-star fas / mx-1 text-primary"></i>
                         </div>
                     </div>
 
                     <p class="mt-8 font-bold text-center">Daniela Tischer</p>
-                    <p class="mt-1 text-sm font-light text-center text-gray-700">
+                    <p class="mt-1 text-gray-700 text-sm font-light text-center">
                         Köchin
                     </p>
 
                     <div class="mt-6 flex justify-content-center">
-                        <p class="text-center max-w-sm">
+                        <p class="max-w-sm text-center">
                             Die Woche war großartig, das Essen ist schnell und unkompliziert zuzubereiten. Alles sehr schmackhaft und mehr als ausreichend. Das Programm ist schön gestaltet und inhaltlich mit vielen nützlichen Informationen versehen, die man sehr gut in den Alltag integrieren kann. Sich die Auszeit zu nehmen, um eine Detox Woche zu machen, kann schon eine Herausforderung sein. Die lohnt sich aber auf jeden Fall! Ich gehe wieder mit frischer Energie in den Tag und habe sogar 3 kg abgenommen. Ich mache es auf jeden Fall nochmal!
                         </p>
                     </div>
@@ -277,8 +277,8 @@
 
     <!--  stets bestens informiert-->
     <!--
-    <section class="md:px-4 / mx-auto container px-2 py-16">
-      <h2 class="text-primary / text-xl font-bold tracking-wide">
+    <section class="mx-auto container px-2 py-16 md:px-4">
+      <h2 class="text-primary text-xl font-bold tracking-wide">
         Stets bestens informiert
       </h2>
 
@@ -289,7 +289,7 @@
       >
         <div class="px-4 pb-8">
           <p class="text-gray-100">01. Januar 2020</p>
-          <h3 class="text-primary-500 / mt-1 text-xl">Startschuss zum Neuen Jahr</h3>
+          <h3 class="mt-1 text-primary-500 text-xl">Startschuss zum Neuen Jahr</h3>
         </div>
       </a>
     </section>-->
@@ -308,12 +308,12 @@
                     width="100%"
             ></iframe>
             <script type="text/javascript" src="https://app.mailjet.com/statics/js/iframeResizer.min.js"></script>
-            <!--      <form action="#todo" method="get" class="md:flex-row / mt-4 flex flex-col">-->
+            <!--      <form action="#todo" method="get" class="mt-4 flex flex-col md:flex-row">-->
             <!--        <label for="newsletter-signup" class="sr-only">-->
             <!--          Ihre E-Mail-Adresse angeben-->
             <!--        </label>-->
             <!---->
-            <!--        <div class="md:w-2/3 / relative w-full">-->
+            <!--        <div class="relative w-full md:w-2/3">-->
             <!--          <input-->
             <!--            id="newsletter-signup"-->
             <!--            type="email"-->
@@ -322,15 +322,15 @@
             <!--            class="w-full px-2 py-4 border-none rounded bg-gray-400"-->
             <!--          />-->
             <!--          <div-->
-            <!--            class="absolute top-0 right-0 bottom-0 flex align-items-center text-base p-2"-->
+            <!--            class="absolute top-0 right-0 bottom-0 flex align-items-center p-2 text-base"-->
             <!--          >-->
-            <!--            <i class="fa-envelope fa-lg fad text-primary-300"></i>-->
+            <!--            <i class="fa-envelope fa-lg fad / text-primary-300"></i>-->
             <!--          </div>-->
             <!--        </div>-->
             <!---->
             <!--        <button-->
             <!--          type="submit"-->
-            <!--          class="bg-primary hover:bg-primary-300 hover:text-gray-100 md:ml-4 md:mt-0 md:w-1/3 / mt-2 font-bold tracking-wide w-full py-2 px-4 border-none rounded-1 text-white transition"-->
+            <!--          class="hover:bg-primary-300 hover:text-gray-100 / mt-2 w-full py-2 px-4 border-none rounded-1 bg-primary text-white font-bold tracking-wide transition md:w-1/3 / md:mt-0 md:ml-4"-->
             <!--        >-->
             <!--          Anmelden-->
             <!--        </button>-->

@@ -1,4 +1,3 @@
-const processPlugins = require("tailwindcss/lib/util/processPlugins").default
 const resolveConfig = require("tailwindcss/lib/util/resolveConfig").default
 const defaultConfig = require("tailwindcss/defaultConfig")
 const _ = require("lodash")
@@ -42,22 +41,6 @@ const plugins = [
 
   "space",
 
-  "fontFamily",
-  "fontSize",
-  customPlugins.fontSizeFromSpacing,
-  "fontWeight",
-  "fontStyle",
-  "fontSmoothing",
-  "textAlign",
-  "verticalAlign",
-  "textDecoration",
-  "textOpacity",
-  "textTransform",
-  "letterSpacing",
-  "lineHeight",
-  "whitespace",
-  "wordBreak",
-
   "boxSizing",
 
   { className: ".container" },
@@ -94,6 +77,22 @@ const plugins = [
 
   "backgroundColor",
   "textColor",
+
+  "fontFamily",
+  "fontSize",
+  customPlugins.fontSizeFromSpacing,
+  "fontWeight",
+  "fontStyle",
+  "fontSmoothing",
+  "textAlign",
+  "verticalAlign",
+  "textDecoration",
+  "textOpacity",
+  "textTransform",
+  "letterSpacing",
+  "lineHeight",
+  "whitespace",
+  "wordBreak",
 
   "transform",
   "transformOrigin",
@@ -218,12 +217,12 @@ function doSomething(plugins, config) {
     })
   })
 
-  require("fs").writeFileSync("tailwind-sort-class-name-list.csv", res.join("\n"), "utf8")
+  require("fs").writeFileSync("sort-class-names-order-reference.csv", res.join("\n"), "utf8")
 }
 
 const path = require("path")
 const appDir = path.dirname(require.main.filename)
 const userConfigPath = path.join(appDir, "tailwind.config.js")
-const config = resolveConfig([userConfigPath, defaultConfig])
+const config = resolveConfig([require(userConfigPath), defaultConfig])
 
 doSomething(plugins, config)
