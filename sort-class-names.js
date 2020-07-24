@@ -10,9 +10,9 @@ exports.__esModule = true;
 var magic_string_1 = require("magic-string");
 var fs = require("fs");
 var twClasses = Object.fromEntries(fs
-    .readFileSync("tailwind-sort-class-name-list.csv", "utf8")
+    .readFileSync("sort-class-names-order-reference.csv", "utf8")
     .split("\n")
-    .map(function (c, i) { return [c, i]; }));
+    .map(function (c, i) { return [c.replace("\r", ""), i]; }));
 function classNameToIndex(className) {
     return twClasses[className] || -1;
 }
@@ -43,6 +43,7 @@ function classNamePartsToSortedString(parts) {
         // wenn kein prefix passt, füge es den allgemeinen Klassen hinzu:
         noPrefixClassNames.push(cn);
     });
+    // als erstes Klassen ohne Prefix
     __spreadArrays([{ prefix: "", classNames: noPrefixClassNames }], prefixesHelper).forEach(function (_a) {
         var classNames = _a.classNames, prefix = _a.prefix;
         var res = {};
@@ -68,19 +69,22 @@ function classNamePartsToSortedString(parts) {
         });
     });
     // zum Schluss alle Variablen hinzufügen:
-    parts.filter(function (p) { return p.type === "variable"; }).forEach(function (p) { return orderedClassNameParts.push(p.value); });
+    parts
+        .filter(function (p) { return p.type === "variable"; })
+        .forEach(function (p) { return orderedClassNameParts.push(p.value); });
     return orderedClassNameParts.join(" ");
 }
 function sort(srcText) {
+    var attrName = srcText.indexOf("class=\"") >= 0 ? "class" : "className";
     var s = new magic_string_1["default"](srcText);
     var res = [];
     var endIndex = 0;
     while (true) {
-        var firstStartIndex = srcText.indexOf("class=\"", endIndex);
+        var firstStartIndex = srcText.indexOf(attrName + "=\"", endIndex);
         if (firstStartIndex < 0) {
             break;
         }
-        firstStartIndex = firstStartIndex + "class=\"".length;
+        firstStartIndex = firstStartIndex + (attrName + "=\"").length;
         endIndex = firstStartIndex;
         var nextTemplateVarIndex = firstStartIndex;
         endIndex = srcText.indexOf("\"", endIndex);
@@ -88,7 +92,10 @@ function sort(srcText) {
         var classNameParts = [];
         var startIndex = firstStartIndex;
         while (nextTemplateVarIndex >= 0 && nextTemplateVarIndex < endIndex) {
-            classNameParts.push({ type: "classNames", value: srcText.substring(startIndex, nextTemplateVarIndex) });
+            classNameParts.push({
+                type: "classNames",
+                value: srcText.substring(startIndex, nextTemplateVarIndex)
+            });
             var closingBracketIndex = nextTemplateVarIndex + "${".length;
             // start bei 1, da wir wissen dass die erste öffnende Klammer schon existiert
             var counter = 1;
@@ -109,12 +116,18 @@ function sort(srcText) {
                     closingBracketIndex++;
                 }
             }
-            classNameParts.push({ type: "variable", value: srcText.substring(nextTemplateVarIndex, closingBracketIndex + 1) });
+            classNameParts.push({
+                type: "variable",
+                value: srcText.substring(nextTemplateVarIndex, closingBracketIndex + 1)
+            });
             startIndex = closingBracketIndex + 1;
             endIndex = srcText.indexOf("\"", closingBracketIndex);
             nextTemplateVarIndex = srcText.indexOf("${", closingBracketIndex);
         }
-        classNameParts.push({ type: "classNames", value: srcText.substring(startIndex, endIndex) });
+        classNameParts.push({
+            type: "classNames",
+            value: srcText.substring(startIndex, endIndex)
+        });
         if (classNameParts.length > 0 &&
             // leere elemente müssen ausgeschlossen werden
             endIndex > firstStartIndex) {

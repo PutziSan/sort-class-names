@@ -1,14 +1,13 @@
 import MagicString from "magic-string";
 import * as fs from "fs";
-import * as path from "path";
 
 type ClassNamePart = { type: "classNames" | "variable"; value: string };
 
 const twClasses: { [key: string]: number } = Object.fromEntries(
   fs
-    .readFileSync("tailwind-sort-class-name-list.csv", "utf8")
+    .readFileSync("sort-class-names-order-reference.csv", "utf8")
     .split("\n")
-    .map((c, i) => [c, i])
+    .map((c, i) => [c.replace("\r", ""), i])
 );
 
 function classNameToIndex(className: string) {
@@ -82,18 +81,20 @@ function classNamePartsToSortedString(parts: ClassNamePart[]) {
 }
 
 function sort(srcText: string) {
+  const attrName = srcText.indexOf(`class="`) >= 0 ? "class" : "className";
+
   const s = new MagicString(srcText);
   const res = [];
 
   let endIndex = 0;
 
   while (true) {
-    let firstStartIndex = srcText.indexOf(`class="`, endIndex);
+    let firstStartIndex = srcText.indexOf(`${attrName}="`, endIndex);
     if (firstStartIndex < 0) {
       break;
     }
 
-    firstStartIndex = firstStartIndex + `class="`.length;
+    firstStartIndex = firstStartIndex + `${attrName}="`.length;
     endIndex = firstStartIndex;
     let nextTemplateVarIndex = firstStartIndex;
 
