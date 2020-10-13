@@ -4,7 +4,7 @@
   "main": "sort-class-names.js",
   "scripts": {
     "build": "tsc sort-class-names.ts --lib esnext --watch",
-    "test": "node sort-class-names.js test-files/TestJsx.jsx"
+    "test": "node sort-class-names.js test-files/TestJsx.tsx"
   },
   "dependencies": {
     "prettier": "^2.0.5",

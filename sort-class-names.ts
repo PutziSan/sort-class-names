@@ -1,6 +1,6 @@
 import MagicString from "magic-string";
 import * as fs from "fs";
-import { format } from "prettier";
+import { format, getFileInfo } from "prettier";
 
 type ClassNamePart = { type: "classNames" | "variable"; value: string };
 
@@ -165,15 +165,23 @@ function sort(srcText: string) {
 }
 
 const fileName = process.argv[2];
-const oldCodeContent = fs.readFileSync(fileName, "utf8");
 
 let config = {};
 try {
   config = require("./prettier.config");
 } catch (e) {}
 
-const newCodeContent = sort(
-  format(oldCodeContent, { ...config, parser: "babel" })
-);
-
-fs.writeFileSync(fileName, newCodeContent, "utf8");
+Promise.all([fs.promises.readFile(fileName, "utf8"), getFileInfo(fileName)])
+  .then(([oldCodeContent, fileInfo]) => {
+    const newCodeContent = sort(
+      format(oldCodeContent, {
+        ...config,
+        parser: (fileInfo.inferredParser as any) || "babel",
+      })
+    );
+    fs.writeFileSync(fileName, newCodeContent, "utf8");
+  })
+  .catch((e) => {
+    console.error(e);
+    process.exit(1)
+  });
