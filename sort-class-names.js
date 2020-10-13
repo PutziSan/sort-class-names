@@ -9,6 +9,7 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
 exports.__esModule = true;
 var magic_string_1 = require("magic-string");
 var fs = require("fs");
+var prettier_1 = require("prettier");
 var twClasses = Object.fromEntries(fs
     .readFileSync("sort-class-names-order-reference.csv", "utf8")
     .split("\n")
@@ -137,5 +138,6 @@ function sort(srcText) {
     return s.toString();
 }
 var fileName = process.argv[2];
-var newCodeContent = sort(fs.readFileSync(fileName, "utf8"));
+var oldCodeContent = fs.readFileSync(fileName, "utf8");
+var newCodeContent = sort(prettier_1.format(oldCodeContent, { parser: "babel" }));
 fs.writeFileSync(fileName, newCodeContent, "utf8");

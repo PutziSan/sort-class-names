@@ -1,5 +1,6 @@
 import MagicString from "magic-string";
 import * as fs from "fs";
+import { format } from "prettier";
 
 type ClassNamePart = { type: "classNames" | "variable"; value: string };
 
@@ -164,6 +165,15 @@ function sort(srcText: string) {
 }
 
 const fileName = process.argv[2];
-const newCodeContent = sort(fs.readFileSync(fileName, "utf8"));
+const oldCodeContent = fs.readFileSync(fileName, "utf8");
+
+let config = {};
+try {
+  config = require("./prettier.config");
+} catch (e) {}
+
+const newCodeContent = sort(
+  format(oldCodeContent, { ...config, parser: "babel" })
+);
 
 fs.writeFileSync(fileName, newCodeContent, "utf8");
