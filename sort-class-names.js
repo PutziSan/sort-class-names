@@ -148,18 +148,20 @@ function sort(srcText) {
     }
     return s.toString();
 }
-var fileName = process.argv[2];
+var fileNames = process.argv.slice(2);
 var config = {};
 try {
     config = require("./prettier.config");
 }
 catch (e) { }
-Promise.all([fs.promises.readFile(fileName, "utf8"), prettier_1.getFileInfo(fileName)])
-    .then(function (_a) {
-    var oldCodeContent = _a[0], fileInfo = _a[1];
-    var newCodeContent = sort(prettier_1.format(oldCodeContent, __assign(__assign({}, config), { parser: fileInfo.inferredParser || "babel" })));
-    fs.writeFileSync(fileName, newCodeContent, "utf8");
-})["catch"](function (e) {
-    console.error(e);
-    process.exit(1);
-});
+Promise.all(fileNames.map(function (fileName) {
+    return Promise.all([fs.promises.readFile(fileName, "utf8"), prettier_1.getFileInfo(fileName)])
+        .then(function (_a) {
+        var oldCodeContent = _a[0], fileInfo = _a[1];
+        var newCodeContent = sort(prettier_1.format(oldCodeContent, __assign(__assign({}, config), { parser: fileInfo.inferredParser || "babel" })));
+        fs.writeFileSync(fileName, newCodeContent, "utf8");
+    })["catch"](function (e) {
+        console.error(e);
+        process.exit(1);
+    });
+}));
