@@ -140,9 +140,7 @@ function sort(srcText) {
     }
     return s.toString();
 }
-// prettier-ignore
-var blacklist = { node: 1, yarn: 1, run: 1, "sort-class-names": 1, "sort-class-names.js": 1, "tw-scn": 1 };
-var fileNames = process.argv.filter(function (f) { return !(f in blacklist); });
+var fileNames = process.argv.slice(2);
 fileNames.forEach(function (fileName) {
     fs.writeFileSync(fileName, sort(fs.readFileSync(fileName, "utf8")), "utf8");
 });
