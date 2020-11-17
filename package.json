@@ -1,13 +1,13 @@
 {
   "name": "tailwind-sort-class-names",
   "author": "Putzi San <putzisan@putzisan.de> (putzisan.de)",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "main": "sort-class-names.js",
   "bin": {
     "tw-scn": "sort-class-names.js"
   },
   "scripts": {
-    "build": "tsc sort-class-names.ts --lib esnext --outDir bin",
+    "build": "tsc sort-class-names.ts --lib esnext",
     "test": "node sort-class-names.js ./test-files/TestJsx.tsx"
   },
   "dependencies": {

@@ -10,10 +10,11 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
 exports.__esModule = true;
 var fs = require("fs");
 var magic_string_1 = require("magic-string");
+var path = require("path");
 var twClasses = Object.fromEntries(fs
     .readFileSync(fs.existsSync("sort-class-names-order-reference.csv")
     ? "sort-class-names-order-reference.csv"
-    : "./sort-class-names-order-reference.csv", "utf8")
+    : path.join(__dirname, "sort-class-names-order-reference.csv"), "utf8")
     .split("\n")
     .map(function (c, i) { return [c.replace("\r", ""), i]; }));
 function classNameToIndex(className) {
@@ -139,7 +140,9 @@ function sort(srcText) {
     }
     return s.toString();
 }
-var fileNames = process.argv.slice(2);
+// prettier-ignore
+var blacklist = { node: 1, yarn: 1, run: 1, "sort-class-names": 1, "sort-class-names.js": 1, "tw-scn": 1 };
+var fileNames = process.argv.filter(function (f) { return !(f in blacklist); });
 fileNames.forEach(function (fileName) {
     fs.writeFileSync(fileName, sort(fs.readFileSync(fileName, "utf8")), "utf8");
 });
