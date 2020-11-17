@@ -2,6 +2,7 @@
 
 import * as fs from "fs";
 import MagicString from "magic-string";
+import * as path from "path";
 
 type ClassNamePart = { type: "classNames" | "variable"; value: string };
 
@@ -10,7 +11,7 @@ const twClasses: { [key: string]: number } = Object.fromEntries(
     .readFileSync(
       fs.existsSync("sort-class-names-order-reference.csv")
         ? "sort-class-names-order-reference.csv"
-        : "./sort-class-names-order-reference.csv",
+        : path.join(__dirname, "sort-class-names-order-reference.csv"),
       "utf8"
     )
     .split("\n")
