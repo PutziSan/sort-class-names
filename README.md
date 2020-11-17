@@ -22,7 +22,7 @@ Neues external tool erstellen via [Settings > Tools > External Tools > +](https:
 
 1. `Program:` => path to yarn-binary (e.g. `C:\Program Files (x86)\Yarn\bin\yarn`)
 1. `Arguments`: `node sort-class-names.js $FilePath$`
-    - `node sort-class-names.js` (script from this repo - you need to copy it into your workspace)
+    - `tw-scn` (script from this repo - you need to copy it into your workspace)
     - (empty space to seperate the script from its argument)
     - `$FilePath$` which is the currently edited file
 1. `Working Directory:` => `$ProjectFileDir$` (so that the node-script can use the node_modules folder correctly with the correct wrking dir)
