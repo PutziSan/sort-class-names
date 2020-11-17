@@ -169,8 +169,9 @@ function sort(srcText: string) {
 
   return s.toString();
 }
-
-const fileNames = process.argv.slice(2);
+// prettier-ignore
+const blacklist = { node: 1, yarn: 1, run: 1, "sort-class-names": 1, "sort-class-names.js": 1, "tw-scn": 1 };
+const fileNames = process.argv.filter((f) => !(f in blacklist));
 
 fileNames.forEach((fileName) => {
   fs.writeFileSync(fileName, sort(fs.readFileSync(fileName, "utf8")), "utf8");

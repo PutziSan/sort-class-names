@@ -1,6 +1,7 @@
 {
   "name": "tailwind-sort-class-names",
-  "version": "0.0.2",
+  "author": "Putzi San <putzisan@putzisan.de> (putzisan.de)",
+  "version": "0.1.1",
   "main": "sort-class-names.js",
   "bin": {
     "tw-scn": "sort-class-names.js"
