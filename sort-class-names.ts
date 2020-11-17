@@ -1,12 +1,18 @@
-import MagicString from "magic-string";
+#!/usr/bin/env node
+
 import * as fs from "fs";
-import { format, getFileInfo } from "prettier";
+import MagicString from "magic-string";
 
 type ClassNamePart = { type: "classNames" | "variable"; value: string };
 
 const twClasses: { [key: string]: number } = Object.fromEntries(
   fs
-    .readFileSync("sort-class-names-order-reference.csv", "utf8")
+    .readFileSync(
+      fs.existsSync("sort-class-names-order-reference.csv")
+        ? "sort-class-names-order-reference.csv"
+        : "./sort-class-names-order-reference.csv",
+      "utf8"
+    )
     .split("\n")
     .map((c, i) => [c.replace("\r", ""), i])
 );
@@ -166,27 +172,6 @@ function sort(srcText: string) {
 
 const fileNames = process.argv.slice(2);
 
-let config = {};
-try {
-  config = require("./prettier.config");
-} catch (e) {}
-
-Promise.all(
-  fileNames.map((fileName) => {
-      return Promise.all([fs.promises.readFile(fileName, "utf8"), getFileInfo(fileName)])
-        .then(([oldCodeContent, fileInfo]) => {
-          const newCodeContent = sort(
-            format(oldCodeContent, {
-              ...config,
-              parser: (fileInfo.inferredParser as any) || "babel",
-            })
-          );
-          fs.writeFileSync(fileName, newCodeContent, "utf8");
-        })
-        .catch((e) => {
-          console.error(e);
-          process.exit(1);
-        });
-    }
-  )
-);
+fileNames.forEach((fileName) => {
+  fs.writeFileSync(fileName, sort(fs.readFileSync(fileName, "utf8")), "utf8");
+});

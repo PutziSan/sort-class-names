@@ -26,7 +26,9 @@ export function useAuth() {
 export function TestJsx() {
   return (
     <div>
-      <div className="mt-20 flex w-screen min-h-screen">asd - whatever :-)</div>
+      <div className="asda / mt-20 flex justify-content-center w-screen h-screen min-h-screen">
+        asd - whatever :-) - oder
+      </div>
     </div>
   );
 }

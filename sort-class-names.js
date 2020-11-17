@@ -1,15 +1,5 @@
+#!/usr/bin/env node
 "use strict";
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 var __spreadArrays = (this && this.__spreadArrays) || function () {
     for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
     for (var r = Array(s), k = 0, i = 0; i < il; i++)
@@ -18,11 +8,12 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
     return r;
 };
 exports.__esModule = true;
-var magic_string_1 = require("magic-string");
 var fs = require("fs");
-var prettier_1 = require("prettier");
+var magic_string_1 = require("magic-string");
 var twClasses = Object.fromEntries(fs
-    .readFileSync("sort-class-names-order-reference.csv", "utf8")
+    .readFileSync(fs.existsSync("sort-class-names-order-reference.csv")
+    ? "sort-class-names-order-reference.csv"
+    : "./sort-class-names-order-reference.csv", "utf8")
     .split("\n")
     .map(function (c, i) { return [c.replace("\r", ""), i]; }));
 function classNameToIndex(className) {
@@ -149,19 +140,6 @@ function sort(srcText) {
     return s.toString();
 }
 var fileNames = process.argv.slice(2);
-var config = {};
-try {
-    config = require("./prettier.config");
-}
-catch (e) { }
-Promise.all(fileNames.map(function (fileName) {
-    return Promise.all([fs.promises.readFile(fileName, "utf8"), prettier_1.getFileInfo(fileName)])
-        .then(function (_a) {
-        var oldCodeContent = _a[0], fileInfo = _a[1];
-        var newCodeContent = sort(prettier_1.format(oldCodeContent, __assign(__assign({}, config), { parser: fileInfo.inferredParser || "babel" })));
-        fs.writeFileSync(fileName, newCodeContent, "utf8");
-    })["catch"](function (e) {
-        console.error(e);
-        process.exit(1);
-    });
-}));
+fileNames.forEach(function (fileName) {
+    fs.writeFileSync(fileName, sort(fs.readFileSync(fileName, "utf8")), "utf8");
+});
