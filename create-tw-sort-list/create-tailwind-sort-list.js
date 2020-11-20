@@ -6,7 +6,6 @@ const customPlugins = require("./tailwind-custom-plugins")
 const plugins = [
   // "accessibility",
   "position",
-  customPlugins.positionsFromSpacing,
   "inset",
 
   "overflow",
@@ -16,8 +15,6 @@ const plugins = [
   "margin",
 
   "alignSelf",
-
-  customPlugins.grid,
 
   "flex",
   "flexGrow",
@@ -31,12 +28,12 @@ const plugins = [
   "alignContent",
   "alignItems",
   "justifyContent",
+  "justifyItems",
+  "justifySelf",
   customPlugins.alignContent,
   customPlugins.alignItems,
   customPlugins.alignSelf,
   customPlugins.justifyContent,
-  customPlugins.justifyItems,
-  customPlugins.justifySelf,
 
 
   "space",
@@ -65,7 +62,6 @@ const plugins = [
   "borderWidth",
   "borderStyle",
   "borderRadius",
-  customPlugins.borderRadiusFromSpacing,
   "borderColor",
   "borderCollapse",
   "borderOpacity",
@@ -87,10 +83,14 @@ const plugins = [
   "textAlign",
   "verticalAlign",
   "textDecoration",
+  customPlugins.textDecorationRenamed,
   "textOpacity",
   "textTransform",
+  customPlugins.textTransformRenamed,
   "letterSpacing",
+  customPlugins.letterSpacingRenamed,
   "lineHeight",
+  customPlugins.lineHeightRenamed,
   "whitespace",
   "wordBreak",
 

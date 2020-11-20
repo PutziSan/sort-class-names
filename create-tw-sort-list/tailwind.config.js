@@ -1,75 +1,96 @@
 const customPlugins = require("./tailwind-custom-plugins")
 
+///
+// UTILS
+///
+
+function toColorFromVariable(rgbValuesVariableName) {
+  return ({ opacityVariable }) => `rgba(var(${rgbValuesVariableName}), var(${opacityVariable}))`;
+}
+
+///
+// CONFIG
+///
 module.exports = {
+  purge: [],
+  darkMode: false,
   corePlugins: {
-    preflight: false,
+    // we use custom variants for justify / align with the correct and explicite naming
     alignContent: false,
     alignItems: false,
     alignSelf: false,
-    justifyContent: false
+    justifyContent: false,
+    // we use line-height-* and letter-spacing-* and not the leading / tracking-utilities
+    lineHeight: false,
+    letterSpacing: false,
+    // we do not use the grid-stuff atm
+    gridAutoColumns: false,
+    gridAutoFlow: false,
+    gridAutoRows: false,
+    gridColumn: false,
+    gridColumnEnd: false,
+    gridColumnStart: false,
+    gridRow: false,
+    gridRowEnd: false,
+    gridRowStart: false,
+    gridTemplateColumns: false,
+    gridTemplateRows: false,
   },
   theme: {
+    colors: require("tailwindcss/colors"),
+    screens: {
+      sm: "640px",
+      // => @media (min-width: 640px) { ... }
+      md: "768px",
+      // => @media (min-width: 768px) { ... }
+      lg: "1024px",
+      // => @media (min-width: 1024px) { ... }
+      xl: "1280px",
+      // => @media (min-width: 1280px) { ... }
+    },
     extend: {
       flex: {
-        '1': '1',
-        '2': '2',
-        '3': '3',
-        '4': '4',
-        '5': '5'
+        1: "1",
+        2: "2",
+        3: "3",
+        4: "4",
+        5: "5",
       },
-
       spacing: {
-        "1px": "1px",
         "2px": "2px",
-        '72': '18rem',
-        '84': '21rem',
-        '96': '24rem',
-        '128': '32rem',
+        84: "21rem",
+        128: "32rem",
       },
       colors: {
-        brown: {
-          default: "hsl(41, 30%, 59%)",
-          100: "hsl(41, 48%, 96%)",
-          200: "hsl(41, 45%, 88%)",
-          300: "hsl(41, 40%, 80%)",
-          400: "hsl(41, 33%, 70%)",
-          500: "hsl(41, 30%, 59%)",
-          600: "hsl(41, 27%, 50%)",
-          700: "hsl(41, 22%, 40%)",
-          800: "hsl(41, 15%, 30%)",
-          900: "hsl(41, 10%, 20%)",
-          contrast: "#ffffff"
-        },
         primary: {
-          default: "var(--color-primary-500)",
-          100: "var(--color-primary-100)",
-          200: "var(--color-primary-200)",
-          300: "var(--color-primary-300)",
-          400: "var(--color-primary-400)",
-          500: "var(--color-primary-500)",
-          600: "var(--color-primary-600)",
-          700: "var(--color-primary-700)",
-          800: "var(--color-primary-800)",
-          900: "var(--color-primary-900)",
-          contrast: "var(--color-primary-contrast)"
+          DEFAULT: toColorFromVariable("--color-rgb-primary-500"),
+          100: toColorFromVariable("--color-rgb-primary-100"),
+          200: toColorFromVariable("--color-rgb-primary-200"),
+          300: toColorFromVariable("--color-rgb-primary-300"),
+          400: toColorFromVariable("--color-rgb-primary-400"),
+          500: toColorFromVariable("--color-rgb-primary-500"),
+          600: toColorFromVariable("--color-rgb-primary-600"),
+          700: toColorFromVariable("--color-rgb-primary-700"),
+          800: toColorFromVariable("--color-rgb-primary-800"),
+          900: toColorFromVariable("--color-rgb-primary-900"),
+          contrast: toColorFromVariable("--color-rgb-primary-contrast"),
         },
         secondary: {
-          default: "var(--color-secondary-500)",
-          100: "var(--color-secondary-100)",
-          200: "var(--color-secondary-200)",
-          300: "var(--color-secondary-300)",
-          400: "var(--color-secondary-400)",
-          500: "var(--color-secondary-500)",
-          600: "var(--color-secondary-600)",
-          700: "var(--color-secondary-700)",
-          800: "var(--color-secondary-800)",
-          900: "var(--color-secondary-900)",
-          contrast: "var(--color-secondary-contrast)"
+          DEFAULT: toColorFromVariable("--color-rgb-secondary-500"),
+          100: toColorFromVariable("--color-rgb-secondary-100"),
+          200: toColorFromVariable("--color-rgb-secondary-200"),
+          300: toColorFromVariable("--color-rgb-secondary-300"),
+          400: toColorFromVariable("--color-rgb-secondary-400"),
+          500: toColorFromVariable("--color-rgb-secondary-500"),
+          600: toColorFromVariable("--color-rgb-secondary-600"),
+          700: toColorFromVariable("--color-rgb-secondary-700"),
+          800: toColorFromVariable("--color-rgb-secondary-800"),
+          900: toColorFromVariable("--color-rgb-secondary-900"),
+          contrast: toColorFromVariable("--color-rgb-secondary-contrast"),
         },
-
-        // default entspricht immer den 500-er-wert
+        // DEFAULT entspricht immer den 500-er-wert
         "apoly-green": {
-          default: "#45919B",
+          DEFAULT: "#45919B",
           100: "#ECF4F5",
           200: "#D1E4E6",
           300: "#B5D3D7",
@@ -79,10 +100,10 @@ module.exports = {
           700: "#29575D",
           800: "#1F4146",
           900: "#152C2F",
-          contrast: "#ffffff"
+          contrast: "#ffffff",
         },
         "apoly-pink": {
-          default: "#DA127D",
+          DEFAULT: "#DA127D",
           100: "#FBE7F2",
           200: "#F6C4DF",
           300: "#F0A0CB",
@@ -92,22 +113,23 @@ module.exports = {
           700: "#830B4B",
           800: "#620838",
           900: "#410526",
-          contrast: "#ffffff"
-        }
-      }
-    }
+          contrast: "#ffffff",
+        },
+      },
+    },
   },
   plugins: [
     customPlugins.alignContent,
     customPlugins.alignItems,
     customPlugins.alignSelf,
     customPlugins.justifyContent,
-    customPlugins.justifyItems,
-    customPlugins.justifySelf,
-    customPlugins.borderRadiusFromSpacing,
-    customPlugins.positionsFromSpacing,
+    // justifyItems, // not needed tailwind names them correctly
+    // justifySelf, // not needed tailwind names them correctly
     customPlugins.minMaxWidthHeightFromSpacing,
     customPlugins.fontSizeFromSpacing,
-    customPlugins.grid
-  ]
+    customPlugins.textDecorationRenamed,
+    customPlugins.lineHeightRenamed,
+    customPlugins.letterSpacingRenamed,
+    customPlugins.textTransformRenamed,
+  ],
 };
