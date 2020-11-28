@@ -1,7 +1,7 @@
-const resolveConfig = require("tailwindcss/lib/util/resolveConfig").default
-const defaultConfig = require("tailwindcss/defaultConfig")
-const _ = require("lodash")
-const customPlugins = require("./tailwind-custom-plugins")
+const resolveConfig = require("tailwindcss/lib/util/resolveConfig").default;
+const defaultConfig = require("tailwindcss/defaultConfig");
+const _ = require("lodash");
+const customPlugins = require("./tailwind-custom-plugins");
 
 const plugins = [
   // "accessibility",
@@ -25,6 +25,8 @@ const plugins = [
   "display",
   "flexDirection",
 
+  "gap",
+
   "alignContent",
   "alignItems",
   "justifyContent",
@@ -34,7 +36,6 @@ const plugins = [
   customPlugins.alignItems,
   customPlugins.alignSelf,
   customPlugins.justifyContent,
-
 
   "space",
 
@@ -133,96 +134,104 @@ const plugins = [
   // "tableLayout",
 
   // "userSelect",
-]
+];
 
 function cleanClassName(str) {
-  str = str.substring(1)
+  str = str.substring(1);
   if (str.indexOf(" ") >= 0) {
-    str = str.substr(0, str.indexOf(" "))
+    str = str.substr(0, str.indexOf(" "));
   }
-  return str
+  return str;
 }
 
 function doSomething(plugins, config) {
-  let res = []
+  let res = [];
 
   const applyConfiguredPrefix = (selector) => {
-    const prefixSelector = require("tailwindcss/lib/util/prefixSelector")
-    return prefixSelector(config.prefix, selector)
-  }
-  const getConfigValue = (path, defaultValue) => _.get(config, path, defaultValue)
+    const prefixSelector = require("tailwindcss/lib/util/prefixSelector");
+    return prefixSelector(config.prefix, selector);
+  };
+  const getConfigValue = (path, defaultValue) =>
+    _.get(config, path, defaultValue);
 
   plugins.forEach((plugin) => {
     if (plugin.className) {
-      res.push(cleanClassName(plugin.className))
-      return
+      res.push(cleanClassName(plugin.className));
+      return;
     }
 
-    let handler = plugin
+    let handler = plugin;
     if (typeof handler === "string") {
-      handler = require(`tailwindcss/lib/plugins/${plugin}`)
+      handler = require(`tailwindcss/lib/plugins/${plugin}`);
       if (handler.default) {
-        handler = handler.default
+        handler = handler.default;
       }
-      handler = handler()
+      handler = handler();
     }
 
-    handler = typeof handler === "function" ? handler : plugin.handler
+    handler = typeof handler === "function" ? handler : plugin.handler;
 
     if (typeof handler !== "function") {
-      console.log(plugin, typeof handler)
-      console.log(require(`tailwindcss/lib/plugins/${plugin}`))
+      console.log(plugin, typeof handler);
+      console.log(require(`tailwindcss/lib/plugins/${plugin}`));
     }
 
     handler({
       config: getConfigValue,
-      theme: (path, defaultValue) => getConfigValue(`theme.${path}`, defaultValue),
+      theme: (path, defaultValue) =>
+        getConfigValue(`theme.${path}`, defaultValue),
       corePlugins: (path) => {
         if (Array.isArray(config.corePlugins)) {
-          return config.corePlugins.includes(path)
+          return config.corePlugins.includes(path);
         }
 
-        return getConfigValue(`corePlugins.${path}`, true)
+        return getConfigValue(`corePlugins.${path}`, true);
       },
       variants: (path, defaultValue) => {
         if (Array.isArray(config.variants)) {
-          return config.variants
+          return config.variants;
         }
 
-        return getConfigValue(`variants.${path}`, defaultValue)
+        return getConfigValue(`variants.${path}`, defaultValue);
       },
       target: (path) => {
         if (_.isString(config.target)) {
-          return config.target === "browserslist" ? browserslistTarget : config.target
+          return config.target === "browserslist"
+            ? browserslistTarget
+            : config.target;
         }
 
-        const [defaultTarget, targetOverrides] = getConfigValue("target")
+        const [defaultTarget, targetOverrides] = getConfigValue("target");
 
-        return _.get(targetOverrides, path, defaultTarget)
+        return _.get(targetOverrides, path, defaultTarget);
       },
       e: require("tailwindcss/lib/util/escapeClassName").default,
       prefix: applyConfiguredPrefix,
       addUtilities: (utilities) => {
         if (Array.isArray(utilities)) {
-          utilities.forEach(u => {
-            Object.keys(u).forEach(cn => res.push(cleanClassName(cn)))
-          })
+          utilities.forEach((u) => {
+            Object.keys(u).forEach((cn) => res.push(cleanClassName(cn)));
+          });
         } else {
-          Object.keys(utilities).forEach(cn => res.push(cleanClassName(cn)))
+          Object.keys(utilities).forEach((cn) => res.push(cleanClassName(cn)));
         }
       },
       addComponents: (components) => {},
       addBase: () => {},
       addVariant: () => {},
-    })
-  })
+    });
+  });
 
-  require("fs").writeFileSync("sort-class-names-order-reference.csv", res.join("\n"), "utf8")
+  require("fs").writeFileSync(
+    path.join(__dirname, "../sort-class-names-order-reference.csv"),
+    res.join("\n"),
+    "utf8"
+  );
 }
 
-const path = require("path")
-const appDir = path.dirname(require.main.filename)
-const userConfigPath = path.join(appDir, "tailwind.config.js")
-const config = resolveConfig([require(userConfigPath), defaultConfig])
+const path = require("path");
+const appDir = path.dirname(require.main.filename);
+const userConfigPath = path.join(appDir, "tailwind.config.js");
+const config = resolveConfig([require(userConfigPath), defaultConfig]);
 
-doSomething(plugins, config)
+doSomething(plugins, config);
