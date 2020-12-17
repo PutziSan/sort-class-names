@@ -1,4 +1,6 @@
 
+> DEPRECATED: use https://github.com/PutziSan/prettier-plugin-sort-class-names instead
+
 ## install
 
 ```

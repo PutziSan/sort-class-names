@@ -223,8 +223,11 @@ function doSomething(plugins, config) {
   });
 
   require("fs").writeFileSync(
-    path.join(__dirname, "../sort-class-names-order-reference.csv"),
-    res.join("\n"),
+    "prettier-plugin-sort-class-names-order",
+    res
+      .filter(Boolean)
+      .map((c) => c.replace(/\\/g, ""))
+      .join("\n"),
     "utf8"
   );
 }
